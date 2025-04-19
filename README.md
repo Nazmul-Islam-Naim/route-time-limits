@@ -7,13 +7,13 @@ A Laravel package that allows you to set time limits on routes and track usage t
 Install the package via composer:
 
 ```bash
-composer require yourvendor/route-time-limits
+composer require ntimes/route-time-limits
 ```
 
 Publish the configuration and migrations:
 
 ```bash
-php artisan vendor:publish --provider="YourVendor\RouteTimeLimits\RouteTimeLimitsServiceProvider"
+php artisan vendor:publish --provider="NTimes\RouteTimeLimits\RouteTimeLimitsServiceProvider"
 ```
 
 Run the migrations:
