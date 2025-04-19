@@ -1,0 +1,32 @@
+{
+    "name": "ntimes/route-time-limits",
+    "description": "A Laravel package for limiting time spent on routes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nazmul Islam Naim",
+            "email": "nazmulislam.bdb@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^8.0|^9.0|^10.0",
+        "illuminate/database": "^8.0|^9.0|^10.0",
+        "illuminate/console": "^8.0|^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "NTimes\\RouteTimeLimits\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NTimes\\RouteTimeLimits\\RouteTimeLimitsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
