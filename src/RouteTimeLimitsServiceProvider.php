@@ -17,6 +17,12 @@ class RouteTimeLimitsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Register the Filesystem service provider to bind 'files'
+        $this->app->register(\Illuminate\Filesystem\FilesystemServiceProvider::class);
+
+        // Register the Cache service provider to bind 'cache'
+        $this->app->register(\Illuminate\Cache\CacheServiceProvider::class);
+
         // Merge config
         $this->mergeConfigFrom(
             __DIR__ . '/config/route_time_limits.php', 'route_time_limits'
