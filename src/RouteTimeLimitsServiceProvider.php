@@ -49,6 +49,11 @@ class RouteTimeLimitsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/database/migrations/create_route_time_limits_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_route_time_limits_table.php'),
         ], 'migrations');
+
+         // Publish the views to the Laravel app's resources/views/route-time-limits directory
+         $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/route-time-limits'),
+        ], 'route-time-limit-views');
         
         // Register commands
         if ($this->app->runningInConsole()) {

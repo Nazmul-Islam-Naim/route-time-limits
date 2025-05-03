@@ -17,6 +17,7 @@ class RouteTimeLimit extends Model
         'method',
         'max_time',
         'used_time',
+        'request_count',
         'user_id',
         'user_type',
         'ip_address',
@@ -30,7 +31,8 @@ class RouteTimeLimit extends Model
      */
     protected $casts = [
         'max_time' => 'integer',
-        'used_time' => 'integer',
+        'used_time' => 'float',
+        'request_count' => 'integer',
         'last_accessed_at' => 'datetime',
     ];
 
@@ -56,6 +58,17 @@ class RouteTimeLimit extends Model
         $this->last_accessed_at = now();
         $this->save();
     }
+
+    /**
+     * Increment the request count for this route.
+     *
+     * @return void
+     */
+    public function incrementRequestCount()
+    {
+        $this->increment('request_count');
+    }
+
 
     /**
      * Reset the used time for this route.

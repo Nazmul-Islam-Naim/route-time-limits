@@ -42,26 +42,31 @@ class RouteTimeLimit
         
         // Check if route has exceeded its time limit
         if ($routeLimit->hasExceededLimit()) {
-            return response()->json([
-                'error' => 'Time limit exceeded for this route',
-                'route' => $routeName,
-                'limit' => $routeLimit->max_time,
-                'used' => $routeLimit->used_time,
-                'user_type' => $routeLimit->user_type,
-            ], 429);
+            // Increment the request count for this route
+            $routeLimit->incrementRequestCount();
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'error' => 'Time limit exceeded for this route',
+                    'route' => $routeName,
+                    'limit' => $routeLimit->max_time,
+                    'used' => $routeLimit->used_time,
+                    'user_type' => $routeLimit->user_type,
+                ], 429);
+            }
+
+            return response()->view('route-time-limits.route-limits-exceeded', [], 429);
+
         }
         
         // Process the request
         $response = $next($request);
         
         // Calculate time spent
-        $timeSpent = (int) ((microtime(true) - $startTime) * 1000);
-        
-        // Convert milliseconds to seconds
-        $timeSpentSeconds = ceil($timeSpent / 1000);
+        $timeSpent = microtime(true) - $startTime;
         
         // Update route time usage
-        $routeLimit->updateUsedTime($timeSpentSeconds > 0 ? $timeSpentSeconds : 1);
+        $routeLimit->updateUsedTime($timeSpent > 0 ? $timeSpent : 1);
         
         return $response;
     }

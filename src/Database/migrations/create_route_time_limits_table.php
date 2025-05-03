@@ -19,7 +19,8 @@ class CreateRouteTimeLimitsTable extends Migration
             $table->string('url')->nullable();
             $table->string('method')->default('GET');
             $table->integer('max_time')->comment('Maximum allowed time in seconds');
-            $table->integer('used_time')->default(0)->comment('Total time used in seconds');
+            $table->float('used_time')->default(0)->comment('Total time used in micro seconds');
+            $table->integer('request_count')->default(0)->comment('Number of requests made');
             $table->unsignedBigInteger('user_id')->nullable()->comment('User ID if authenticated');
             $table->string('user_type')->default('guest')->comment('Type of user: guest, authenticated');
             $table->string('ip_address')->nullable();
