@@ -52,7 +52,7 @@ class RouteTimeLimitsServiceProvider extends ServiceProvider
 
          // Publish the views to the Laravel app's resources/views/route-time-limits directory
          $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/route-time-limits'),
+            __DIR__ . '/resources/views' => resource_path('views/route-time-limits'),
         ], 'route-time-limit-views');
         
         // Register commands
