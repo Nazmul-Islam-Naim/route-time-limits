@@ -42,9 +42,6 @@ class RouteTimeLimit
         
         // Check if route has exceeded its time limit
         if ($routeLimit->hasExceededLimit()) {
-            // Increment the request count for this route
-            $routeLimit->incrementRequestCount();
-
             if ($request->expectsJson()) {
                 return response()->json([
                     'error' => 'Time limit exceeded for this route',
@@ -58,6 +55,9 @@ class RouteTimeLimit
             return response()->view('route-time-limits.route-limits-exceeded', [], 429);
 
         }
+        
+        // Increment the request count for this route
+        $routeLimit->incrementRequestCount();
         
         // Process the request
         $response = $next($request);
