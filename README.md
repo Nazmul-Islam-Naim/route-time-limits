@@ -1,8 +1,14 @@
-# Laravel Route Time Limits
+# 🕒 Laravel Route Time Limits
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ntimes/route-time-limits.svg?style=flat-square)](https://packagist.org/packages/ntimes/route-time-limits)
+[![Total Downloads](https://img.shields.io/packagist/dt/ntimes/route-time-limits.svg?style=flat-square)](https://packagist.org/packages/ntimes/route-time-limits)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 A Laravel package that allows you to set time limits on routes and track usage times based on user authentication status. This package helps you monitor and control how much time is spent on specific routes over a defined period, with different limits for authenticated and guest users.
 
-## Installation
+---
+
+## 📥 Installation
 
 Install the package via composer:
 
@@ -22,9 +28,11 @@ Run the migrations:
 php artisan migrate
 ```
 
-## Usage
+---
 
-### Basic Usage
+## 📚 Usage
+
+### 🔰 Basic Usage
 
 Add the middleware to your routes:
 
@@ -41,7 +49,7 @@ Route::middleware('route.time.limit')->group(function () {
 });
 ```
 
-### Configuration
+### ⚙️ Configuration
 
 You can customize the package behavior in the `config/route_time_limits.php` file:
 
@@ -86,9 +94,9 @@ return [
 ];
 ```
 
-### Available Commands
+### 🛠️ Available Commands
 
-#### Cleanup Old Records
+#### 🧹 Cleanup Old Records
 
 The package includes a command to clean up old records:
 
@@ -105,7 +113,7 @@ php artisan route-time-limits:cleanup --user-type=authenticated
 
 This command is automatically scheduled to run daily, but you can also run it manually.
 
-#### Reset Time Limits
+#### 🔄 Reset Time Limits
 
 For testing or administrative purposes, you can reset time limits:
 
@@ -120,7 +128,21 @@ php artisan route-time-limits:reset --route=admin.dashboard
 php artisan route-time-limits:reset --user-id=1
 ```
 
-## How It Works
+---
+
+## 🔍 How It Works
+
+```mermaid
+flowchart TD
+    A[Route Access] --> B{Check Limits}
+    B --> C{Record Exists?}
+    C -->|Yes| D{Time Limit Exceeded?}
+    C -->|No| E[Create Record]
+    D -->|Yes| F[Return 429]
+    D -->|No| G[Track Time]
+    E --> G
+    G --> H[Continue Request]
+```
 
 1. When a user visits a route with the middleware applied, the package checks if there's an existing record for that route and user type (guest or authenticated).
 2. If no record exists, it creates one with the default time limit (or a custom one if configured).
@@ -130,6 +152,8 @@ php artisan route-time-limits:reset --user-id=1
 6. Different time limits are applied based on whether the user is authenticated or a guest.
 7. Guest users can be tracked by IP address if configured.
 
-## License
+---
+
+## 📃 License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.

@@ -28,5 +28,16 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "keywords": [
+        "laravel",
+        "route",
+        "time",
+        "limits",
+        "middleware",
+        "time-tracking",
+        "rate-limiting",
+        "user-tracking",
+        "access-control"
+    ]
 }
