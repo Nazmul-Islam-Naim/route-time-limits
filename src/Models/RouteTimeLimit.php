@@ -82,6 +82,17 @@ class RouteTimeLimit extends Model
     }
 
     /**
+     * Reset the request count for this route.
+     *
+     * @return void
+     */
+    public function resetRequestCount()
+    {
+        $this->request_count = 0;
+        $this->save();
+    }
+
+    /**
      * Scope a query to only include records for a specific user.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

@@ -50,7 +50,7 @@ class ResetTimeLimitsCommand extends Command
             return 1;
         }
         
-        $updated = $query->update(['used_time' => 0, 'last_accessed_at' => now()]);
+        $updated = $query->update(['used_time' => 0, 'request_count' => 0, 'last_accessed_at' => now()]);
         
         $this->info("Reset {$updated} route time limit records.");
         

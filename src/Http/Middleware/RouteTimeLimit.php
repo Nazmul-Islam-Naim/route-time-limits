@@ -27,7 +27,8 @@ class RouteTimeLimit
         $route = Route::current();
 
         // Try to get route name, if missing, fallback to route URI
-        $routeName = $route?->getName() ?? $route?->uri();
+        $routeName = $route ? ($route->getName() ?? $route->uri()) : null;
+
 
         // Skip if no route name or route is excluded
         if (!$routeName || in_array($routeName, config('route_time_limits.excluded_routes', []))) {
@@ -138,6 +139,7 @@ class RouteTimeLimit
         // Check if it's a new day, reset counter if needed
         if ($routeLimit->last_accessed_at && $routeLimit->last_accessed_at->diffInDays(now()) >= 1) {
             $routeLimit->resetUsedTime();
+            $routeLimit->resetRequestCount();
         }
         
         return $routeLimit;
